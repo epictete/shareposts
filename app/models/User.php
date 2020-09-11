@@ -12,7 +12,7 @@
     // Regsiter user
     public function register($data)
     {
-      $this->db->query('INSERT INTO users (name, email, password) VALUES(:name, :email, :password)');
+      $this->db->query('INSERT INTO users(name, email, password) VALUES(:name, :email, :password)');
 
       // Bind values
       $this->db->bind(':name', $data['name']);
@@ -68,6 +68,19 @@
       {
         return false;
       }
+    }
+
+    // Get user by id
+    public function getUserById($id)
+    {
+      $this->db->query('SELECT * FROM users WHERE id = :id');
+
+      // Bind value
+      $this->db->bind(':id', $id);
+
+      $row = $this->db->single();
+
+      return $row;
     }
   }
 

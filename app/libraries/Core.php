@@ -32,12 +32,15 @@
             $this->currentController = new $this->currentController;
 
             // Check for second part of url
-            if (method_exists($this->currentController, $url[1]))
+            if (isset($url[1]))
             {
                 // Check to see if method exists in controller
-                $this->currentMethod = $url[1];
-                // Unset 1 Index
-                unset($url[1]);
+                if (method_exists($this->currentController, $url[1]))
+                {
+                    $this->currentMethod = $url[1];
+                    // Unset 1 Index
+                    unset($url[1]);
+                }
             }
 
             // Get params

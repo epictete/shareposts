@@ -131,16 +131,16 @@
                 // Init data
                 $data =
                 [
-                    'email' => trim($_POST['email']),
+                    'name' => trim($_POST['name']),
                     'password' => trim($_POST['password']),
-                    'email_err' => '',
+                    'name_err' => '',
                     'password_err' => ''
                 ];
 
-                // Validate Email
-                if (empty($data['email']))
+                // Validate Name
+                if (empty($data['name']))
                 {
-                    $data['email_err'] = 'Please enter email';
+                    $data['name_err'] = 'Please enter name';
                 }
 
                 // Validate Password
@@ -149,24 +149,24 @@
                     $data['password_err'] = 'Please enter password';
                 }
 
-                // Check for user/email
-                if ($this->userModel->findUserByEmail($data['email']))
+                // Check for user/name
+                if ($this->userModel->getUserByName($data['name']))
                 {
                     // User found
                 }
                 else
                 {
                     // User not found
-                    $data['email_err'] = 'No user found';
+                    $data['name'] = 'No user found';
                 }
 
                 // Make sure errors are empty
-                if (empty($data['email_err']) && empty($data['password_err']))
+                if (empty($data['name_err']) && empty($data['password_err']))
                 {
                     // Validated
                     
                     // Check and set logged in user
-                    $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+                    $loggedInUser = $this->userModel->login($data['name'], $data['password']);
 
                     if ($loggedInUser)
                     {
@@ -191,9 +191,9 @@
                 // Init data
                 $data =
                 [
-                    'email' => '',
+                    'name' => '',
                     'password' => '',
-                    'email_err' => '',
+                    'name_err' => '',
                     'password_err' => ''
                 ];
 
@@ -205,15 +205,15 @@
         public function createUserSession($user)
         {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_type'] = $user->type;
             $_SESSION['user_name'] = $user->name;
-            redirect('posts');
+            redirect('admin/index');
         }
 
         public function logout()
         {
             unset($_SESSION['user_id']);
-            unset($_SESSION['user_email']);
+            unset($_SESSION['user_type']);
             unset($_SESSION['user_name']);
             session_destroy();
             redirect('users/login');

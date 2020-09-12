@@ -31,15 +31,16 @@
     }
 
     // Login User
-    public function login($email, $password)
+    public function login($name, $password)
     {
-      $this->db->query('SELECT * FROM users WHERE email = :email');
-      $this->db->bind(':email', $email);
+      $this->db->query('SELECT * FROM members WHERE name = :name');
+      $this->db->bind(':name', $name);
 
       $row = $this->db->single();
 
       $hashed_password = $row->password;
-      if (password_verify($password, $hashed_password))
+      // if (password_verify($password, $hashed_password))
+      if ($row->password == $password)
       {
         return $row;
       }
@@ -77,6 +78,19 @@
 
       // Bind value
       $this->db->bind(':id', $id);
+
+      $row = $this->db->single();
+
+      return $row;
+    }
+
+    // Get user by name
+    public function getUserByName($name)
+    {
+      $this->db->query('SELECT * FROM members WHERE name = :name');
+
+      // Bind value
+      $this->db->bind(':name', $name);
 
       $row = $this->db->single();
 

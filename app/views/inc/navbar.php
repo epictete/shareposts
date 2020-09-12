@@ -21,6 +21,9 @@
             <a class="nav-link" href="#">Welcome <?= $_SESSION['user_name'] ?></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="<?= URLROOT ?>/admin/index">Admin</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="<?= URLROOT ?>/users/logout">Logout</a>
           </li>
         <?php else : ?>

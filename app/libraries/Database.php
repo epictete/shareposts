@@ -98,5 +98,3 @@
       return $this->stmt->rowCount();
     }
   }
-
-?>

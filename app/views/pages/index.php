@@ -1,4 +1,4 @@
-<?php require APPROOT . '/views/inc/header.php' ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
 
     <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
@@ -7,4 +7,4 @@
         </div>
     </div>
 
-<?php require APPROOT . '/views/inc/footer.php' ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

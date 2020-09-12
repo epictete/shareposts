@@ -1,6 +1,6 @@
-<?php require APPROOT . '/views/inc/header.php' ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
 
-    <?php flash('post_message') ?>
+    <?php flash('post_message'); ?>
     <div class="row mb-3">
         <div class="col-md-6">
             <h1>Posts</h1>
@@ -20,6 +20,6 @@
             <p class="card-text"><?= $post->body ?></p>
             <a href="<?= URLROOT ?>/posts/show/<?= $post->postId ?>" class="btn btn-dark">More</a>
         </div>
-    <?php endforeach ?>
+    <?php endforeach; ?>
 
-<?php require APPROOT . '/views/inc/footer.php' ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -219,5 +219,3 @@
             redirect('users/login');
         }
     }
-
-?>

@@ -1,4 +1,4 @@
-<?php require APPROOT . '/views/inc/header.php' ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
 
     <a href="<?= URLROOT ?>/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
     <br>
@@ -13,6 +13,6 @@
         <form class="pull-right" action="<?= URLROOT ?>/posts/delete/<?= $data['post']->id ?>" method="post">
             <input type="submit" value="Delete" class="btn btn-danger">
         </form>
-    <?php endif ?>
+    <?php endif; ?>
 
-<?php require APPROOT . '/views/inc/footer.php' ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

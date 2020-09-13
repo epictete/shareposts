@@ -23,13 +23,11 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= URLROOT ?>/admin/index">Admin</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="<?= URLROOT ?>/users/logout">Logout</a>
           </li>
         <?php else : ?>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= URLROOT ?>/users/register">Register</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= URLROOT ?>/users/login">Login</a>
           </li>

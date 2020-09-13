@@ -5,10 +5,14 @@
         public function __construct()
         {
             $this->userModel = $this->model('User');
+            $this->typeModel = $this->model('Type');
         }
 
         public function register()
         {
+            // Get foreign key IDs
+            $users_type = $this->typeModel->getUsersTypes();
+
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
@@ -21,32 +25,27 @@
                 $data =
                 [
                     'name' => trim($_POST['name']),
-                    'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'confirm_password' => trim($_POST['confirm_password']),
+                    'user_type_id' => intval(trim($_POST['user_type_id'])),
+                    'users_type' => $users_type,
                     'name_err' => '',
                     'email_err' => '',
                     'password_err' => '',
                     'password_confirm_err' => ''
                 ];
 
-                // Validate Email
-                if (empty($data['email']))
-                {
-                    $data['email_err'] = 'Please enter email';
-                }
-                else
-                {
-                    if ($this->userModel->findUserByEmail($data['email']))
-                    {
-                        $data['email_err'] = 'Email is already taken';
-                    }
-                }
-
                 // Validate Name
                 if (empty($data['name']))
                 {
                     $data['name_err'] = 'Please enter name';
+                }
+                else
+                {
+                    if ($this->userModel->findUserByName($data['name']))
+                    {
+                        $data['name_err'] = 'Name already taken';
+                    }
                 }
 
                 // Validate Password
@@ -54,9 +53,9 @@
                 {
                     $data['password_err'] = 'Please enter password';
                 }
-                elseif (strlen($data['password']) < 6)
+                elseif (strlen($data['password']) < 4)
                 {
-                    $data['password_err'] = 'Password must be at least 6 characters';
+                    $data['password_err'] = 'Password must be at least 4 characters';
                 }
 
                 // Validate Confirm Password
@@ -73,7 +72,10 @@
                 }
 
                 // Make sure errors are empty
-                if (empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err']))
+                if (
+                    empty($data['name_err']) &&
+                    empty($data['password_err']) &&
+                    empty($data['confirm_password_err']))
                 {
                     // Validated
                     
@@ -83,7 +85,7 @@
                     // Register user
                     if ($this->userModel->register($data))
                     {
-                        flash('register_success', 'You are registered and can log in');
+                        flash('register_success', 'User registered');
                         redirect('users/login');
                     }
                     else
@@ -104,9 +106,10 @@
                 $data =
                 [
                     'name' => '',
-                    'email' => '',
                     'password' => '',
                     'confirm_password' => '',
+                    'user_type_id' => '',
+                    'users_type' => $users_type,
                     'name_err' => '',
                     'email_err' => '',
                     'password_err' => '',
@@ -150,14 +153,14 @@
                 }
 
                 // Check for user/name
-                if ($this->userModel->getUserByName($data['name']))
+                if ($this->userModel->findUserByName($data['name']))
                 {
                     // User found
                 }
                 else
                 {
                     // User not found
-                    $data['name'] = 'No user found';
+                    $data['name_err'] = 'No user found';
                 }
 
                 // Make sure errors are empty
@@ -205,7 +208,7 @@
         public function createUserSession($user)
         {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_type'] = $user->type;
+            $_SESSION['user_type'] = $user->type_id;
             $_SESSION['user_name'] = $user->name;
             redirect('admin/index');
         }

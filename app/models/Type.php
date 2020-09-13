@@ -17,4 +17,13 @@
 
             return $results;
         }
+
+        public function getUsersTypes()
+        {
+            $this->db->query('SELECT * FROM users_type');
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
     }

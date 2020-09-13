@@ -24,6 +24,13 @@
                 <i class="fas fa-plus"></i> New Company
             </a>
         </div>
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == '1') : ?>
+            <div class="col-md-2">
+                <a href="<?= URLROOT ?>/users/register" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> New User
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

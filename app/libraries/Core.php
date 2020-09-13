@@ -17,7 +17,7 @@
             $url = $this->getUrl();
 
             // Look in controllers for first value
-            if (isset($url[1]))
+            if (isset($url[0]))
             {
                 if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php'))
                 {

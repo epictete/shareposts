@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-    <?php flash('post_message'); ?>
+    <?php flash('admin_message'); ?>
     <div class="row mb-3">
         <div class="col-md-6">
             <h1>Welcome to the COGIP</h1>
@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="col-md-2">
-            <a href="<?= URLROOT ?>/contacts/add" class="btn btn-primary">
+            <a href="<?= URLROOT ?>/people/add" class="btn btn-primary">
                 <i class="fas fa-plus"></i> New Contact
             </a>
         </div>

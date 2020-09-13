@@ -4,11 +4,22 @@
     {
         public function __construct()
         {
+            if (!isLoggedIn())
+            {
+                redirect('users/login');
+            }
+
             $this->invoiceModel = $this->model('Invoice');
+            $this->companyModel = $this->model('Company');
+            $this->peopleModel = $this->model('People');
         }
 
         public function add()
         {
+            // Get foreign key IDs
+            $companies = $this->companyModel->getCompanies();
+            $people = $this->peopleModel->getPeople();
+
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
@@ -22,12 +33,12 @@
                 [
                     'number' => trim($_POST['number']),
                     'date' => trim($_POST['date']),
-                    'company' => trim($_POST['company']),
-                    'contact' => trim($_POST['contact']),
+                    'company_id' => intval(trim($_POST['company_id'])),
+                    'people_id' => intval(trim($_POST['people_id'])),
+                    'companies' => $companies,
+                    'people' => $people,
                     'number_err' => '',
-                    'date_err' => '',
-                    'company_err' => '',
-                    'contact_err' => ''
+                    'date_err' => ''
                 ];
 
                 // Validate Number
@@ -49,29 +60,16 @@
                     $data['date_err'] = 'Please enter date';
                 }
 
-                // Validate Company
-                if (empty($data['company']))
-                {
-                    $data['company_err'] = 'Please select a company';
-                }
-
-
-                // Validate Contact
-                if (empty($data['contact']))
-                {
-                    $data['contact_err'] = 'Please select a contact';
-                }
-
                 // Make sure errors are empty
-                if (empty($data['number_err']) && empty($data['date_err']) && empty($data['company_err']) && empty($data['contact_err']))
+                if (empty($data['number_err']) && empty($data['date_err']))
                 {
                     // Validated
 
                     // Add invoice
                     if ($this->invoiceModel->addInvoice($data))
                     {
-                        flash('add_success', 'Invoice added');
-                        redirect('admin/index');
+                        flash('admin_message', 'Invoice added');
+                        redirect('admin');
                     }
                     else
                     {
@@ -92,12 +90,12 @@
                 [
                     'number' => '',
                     'date' => '',
-                    'company' => '',
-                    'contact' => '',
+                    'company_id' => '',
+                    'people_id' => '',
+                    'companies' => $companies,
+                    'people' => $people,
                     'number_err' => '',
-                    'date_err' => '',
-                    'company_err' => '',
-                    'contact_err' => ''
+                    'date_err' => ''
                 ];
 
                 // Load view

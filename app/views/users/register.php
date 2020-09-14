@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body bg-light mt-5">
-                <h2>Create An Account</h2>
-                <p>Please fill out this form to register a new user</p>
+                <h2>Add User</h2>
+                <p>Create a new user with this form</p>
                 <form action="<?= URLROOT ?>/users/register" method="post">
                     <div class="form-group">
                         <label for="name">Name: <sup>*</sup></label>

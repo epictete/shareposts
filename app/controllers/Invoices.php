@@ -11,14 +11,14 @@
 
             $this->invoiceModel = $this->model('Invoice');
             $this->companyModel = $this->model('Company');
-            $this->peopleModel = $this->model('People');
+            $this->personModel = $this->model('Person');
         }
 
         public function add()
         {
             // Get foreign key IDs
             $companies = $this->companyModel->getCompanies();
-            $people = $this->peopleModel->getPeople();
+            $people = $this->personModel->getPeople();
 
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST')

@@ -85,7 +85,7 @@
                     // Register user
                     if ($this->userModel->register($data))
                     {
-                        flash('register_success', 'User registered');
+                        flash('admin_message', 'User added');
                         redirect('users/login');
                     }
                     else

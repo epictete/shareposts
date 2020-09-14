@@ -88,7 +88,7 @@
                 {
                     // Validated
 
-                    // Add invoice
+                    // Add Person
                     if ($this->personModel->addPerson($data))
                     {
                         flash('admin_message', 'Person added');

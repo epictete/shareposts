@@ -18,6 +18,23 @@
             return $results;
         }
 
+        public function getPeopleCompanies()
+        {
+          $this->db->query('SELECT *,
+                            people.id as personId,
+                            companies.id as companyId
+                            FROM people
+                            INNER JOIN companies
+                            ON people.company_id = companies.id
+                            ORDER BY people.id DESC
+                            LIMIT 5
+                            ');
+
+          $results = $this->db->resultSet();
+
+          return $results;
+        }
+
         public function addPerson($data)
         {
             $this->db->query('INSERT INTO
@@ -44,6 +61,15 @@
             }
         }
 
+        public function getPersonById($id)
+        {
+            $this->db->query('SELECT * FROM people WHERE id = :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+            return $row;
+        }
+
         public function findEmail($email)
         {
             $this->db->query('SELECT * FROM people WHERE email = :email');
@@ -60,5 +86,23 @@
 
             $row = $this->db->single();
             return $row;
+        }
+
+        public function deletePerson($id)
+        {
+            $this->db->query('DELETE FROM people WHERE id = :id');
+
+            // Bind values
+            $this->db->bind(':id', $id);
+      
+            // Execute
+            if ($this->db->execute())
+            {
+              return true;
+            }
+            else
+            {
+              return false;
+            }
         }
     }

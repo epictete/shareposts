@@ -109,4 +109,33 @@
                 $this->view('companies/add', $data);
             }
         }
+
+        public function delete($id)
+        {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST')
+            {
+                // Get existing post from model
+                $invoice = $this->companyModel->getCompanyById($id);
+
+                // Check for owner
+                if ($_SESSION['user_type'] != '1')
+                {
+                    redirect('admin');
+                }
+
+                if ($this->companyModel->deleteCompany($id))
+                {
+                    flash('admin_message', 'Company Removed');
+                    redirect('admin');
+                }
+                else
+                {
+                    die('Something went wrong');
+                }
+            }
+            else
+            {
+                redirect('admin');
+            }
+        }
     }

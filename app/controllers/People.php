@@ -127,4 +127,33 @@
                 $this->view('people/add', $data);
             }
         }
+
+        public function delete($id)
+        {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST')
+            {
+                // Get existing post from model
+                $people = $this->personModel->getPersonById($id);
+
+                // Check for owner
+                if ($_SESSION['user_type'] != '1')
+                {
+                    redirect('admin');
+                }
+
+                if ($this->personModel->deletePerson($id))
+                {
+                    flash('admin_message', 'Person Removed');
+                    redirect('admin');
+                }
+                else
+                {
+                    die('Something went wrong');
+                }
+            }
+            else
+            {
+                redirect('admin');
+            }
+        }
     }

@@ -18,6 +18,32 @@
             return $results;
         }
 
+        public function getCompaniesTypes()
+        {
+          $this->db->query('SELECT *,
+                            companies.id as companyId,
+                            type.id as typeId
+                            FROM companies
+                            INNER JOIN type
+                            ON companies.type_id = type.id
+                            ORDER BY companies.id DESC
+                            LIMIT 5
+                            ');
+
+          $results = $this->db->resultSet();
+
+          return $results;
+        }
+
+        public function getCompanyById($id)
+        {
+            $this->db->query('SELECT * FROM companies WHERE id = :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+            return $row;
+        }
+
         public function addCompany($data)
         {
             $this->db->query('INSERT INTO
@@ -50,5 +76,23 @@
 
             $row = $this->db->single();
             return $row;
+        }
+
+        public function deleteCompany($id)
+        {
+            $this->db->query('DELETE FROM companies WHERE id = :id');
+
+            // Bind values
+            $this->db->bind(':id', $id);
+      
+            // Execute
+            if ($this->db->execute())
+            {
+              return true;
+            }
+            else
+            {
+              return false;
+            }
         }
     }

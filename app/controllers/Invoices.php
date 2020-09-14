@@ -102,4 +102,33 @@
                 $this->view('invoices/add', $data);
             }
         }
+
+        public function delete($id)
+        {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST')
+            {
+                // Get existing post from model
+                $invoice = $this->invoiceModel->getInvoiceById($id);
+
+                // Check for owner
+                if ($_SESSION['user_type'] != '1')
+                {
+                    redirect('admin');
+                }
+
+                if ($this->invoiceModel->deleteInvoice($id))
+                {
+                    flash('admin_message', 'Invoice Removed');
+                    redirect('admin');
+                }
+                else
+                {
+                    die('Something went wrong');
+                }
+            }
+            else
+            {
+                redirect('admin');
+            }
+        }
     }

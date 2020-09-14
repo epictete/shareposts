@@ -30,6 +30,32 @@
             }
         }
 
+        public function getInvoices()
+        {
+          $this->db->query('SELECT *,
+                            invoices.id as invoiceId,
+                            companies.id as companyId
+                            FROM invoices
+                            INNER JOIN companies
+                            ON invoices.company_id = companies.id
+                            ORDER BY date DESC
+                            LIMIT 5
+                            ');
+
+          $results = $this->db->resultSet();
+
+          return $results;
+        }
+
+        public function getInvoiceById($id)
+        {
+            $this->db->query('SELECT * FROM invoices WHERE id = :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+            return $row;
+        }
+
         public function findInvoiceByNumber($number)
         {
             $this->db->query('SELECT * FROM invoices WHERE number = :number');

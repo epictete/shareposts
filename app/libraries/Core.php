@@ -1,9 +1,9 @@
 <?php
 
     /*
-     * APP Core Class
-     * Creates URL & loads core controller
-     * URL Format - /controller/method/params
+     *APP Core Class
+     *Creates URL & loads core controller
+     *URL Format - /controller/method/params
      */
 
     class Core
@@ -17,15 +17,12 @@
             $url = $this->getUrl();
 
             // Look in controllers for first value
-            if (isset($url[0]))
+            if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php'))
             {
-                if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php'))
-                {
-                    // If exists, set as controller
-                    $this->currentController = ucwords($url[0]);
-                    // Unset 0 Index
-                    unset($url[0]);
-                }
+                // If exists, set as controller
+                $this->currentController = ucwords($url[0]);
+                // Unset 0 Index
+                unset($url[0]);
             }
 
             // Require the controller

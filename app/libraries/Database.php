@@ -1,12 +1,12 @@
 <?php
 
   /*
-   * PDO Database Class
-   * Connect to database
-   * Create prepared statements
-   * Bind values
-   * Return rows and results
-   */
+    * PDO Database Class
+    * Connect to database
+    * Create prepared statements
+    * Bind values
+    * Return rows and results
+    */
     
   class Database
   {
@@ -51,7 +51,7 @@
     // Bind values
     public function bind($param, $value, $type = null)
     {
-      if (is_null($type))
+      if(is_null($type))
       {
         switch(true)
         {

@@ -9,15 +9,15 @@
 
         public function index()
         {
-            // if (isLoggedIn)
-            // {
-            //     redirect('posts');
-            // }
+            if (isLoggedIn)
+            {
+                redirect('posts');
+            }
 
             $data =
             [
-                'title' => 'Cogip APP',
-                'description' => 'Welcome to the Cogip APP'
+                'title' => 'SharePosts',
+                'description' => 'Simple social network built on a custom MVC PHP Framework.'
             ];
 
             $this->view('pages/index', $data);
@@ -28,7 +28,7 @@
             $data =
             [
                 'title' => 'About',
-                'description' => "App to manage Cogip's accounting."
+                'description' => 'App to share posts with other users.'
             ];
 
             $this->view('pages/about', $data);
